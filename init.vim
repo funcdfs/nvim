@@ -12,17 +12,10 @@ Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
-
-
-
 if exists("g:neovide")
     " Put anything you want to happen only in Neovide here
     set guifont=source_code_pro,:h10.5
 endif
-
-" cp config 
-require('competitest').setup()
-
 
 
 "==========================================
