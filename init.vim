@@ -4,11 +4,11 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 
 " theme
 Plug 'joshdick/onedark.vim'
+Plug 'glepnir/oceanic-material'
 
 " cp
-Plug 'MunifTanjim/nui.nvim'        " it's a dependency
-Plug 'xeluxee/competitest.nvim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tibabit/vim-templates'
 
 call plug#end()
 
@@ -16,6 +16,15 @@ if exists("g:neovide")
     " Put anything you want to happen only in Neovide here
     set guifont=source_code_pro,:h10.5
 endif
+
+
+
+" remove auto pair } auto jump in insert mode
+let g:AutoPairsMultilineClose=0
+
+" template file path
+let g:tmpl_search_paths = ['D:/code/snippets/templates']
+
 
 
 "==========================================
@@ -182,6 +191,9 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>n :nohl<CR>
 nnoremap <leader>p :w !clip.exe<CR><CR>
+
+" for cp init
+nnoremap <leader>t :TemplateInit<CR>
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
@@ -233,14 +245,12 @@ highlight CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NON
 
 set noswapfile
 set mouse=a
-" colorscheme at
-colorscheme onedark
+
+set background=dark
+colorscheme oceanic_material
 
 set shortmess=a
 set cmdheight=2
 
 map <C-c> :s/^/\/\//<Enter>
 map <C-u> :s/^\/\///<Enter>
-
-" remove auto pair } auto jump in insert mode
-let g:AutoPairsMultilineClose=0
