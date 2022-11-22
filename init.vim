@@ -14,11 +14,13 @@ call plug#end()
 
 if exists("g:neovide")
     " Put anything you want to happen only in Neovide here
-    set guifont=source_code_pro,:h10.5
+    set guifont=source_code_pro,:h10
+    "  let g:neovide_transparency = 0.97
+    let g:neovide_scroll_animation_length = 0.2
+    let g:neovide_cursor_trail_size = 0.4
 endif
 
-
-
+set clipboard+=unnamedplus
 " remove auto pair } auto jump in insert mode
 let g:AutoPairsMultilineClose=0
 
@@ -184,6 +186,7 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 " kj 替换 Esc
 inoremap kj <Esc>
+inoremap <c-v> <c-r>*
 
 " Quickly close the current window
 nnoremap <leader>q :q<CR>
@@ -194,6 +197,7 @@ nnoremap <leader>p :w !clip.exe<CR><CR>
 
 " for cp init
 nnoremap <leader>t :TemplateInit<CR>
+
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
