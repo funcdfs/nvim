@@ -6,15 +6,18 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 Plug 'joshdick/onedark.vim'
 Plug 'glepnir/oceanic-material'
 
+
 " cp
 Plug 'jiangmiao/auto-pairs'
-Plug 'tibabit/vim-templates'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'nvie/vim-flake8'
+
 
 call plug#end()
 
 if exists("g:neovide")
     " Put anything you want to happen only in Neovide here
-    set guifont=source_code_pro,:h10
+    set guifont=source_code_pro,方正行黑简体:h10
     "  let g:neovide_transparency = 0.97
     let g:neovide_scroll_animation_length = 0.2
     let g:neovide_cursor_trail_size = 0.4
@@ -23,10 +26,7 @@ endif
 set clipboard+=unnamedplus
 " remove auto pair } auto jump in insert mode
 let g:AutoPairsMultilineClose=0
-
-" template file path
-let g:tmpl_search_paths = ['D:/code/snippets/templates']
-
+let python_highlight_all=1
 
 
 "==========================================
@@ -156,8 +156,12 @@ function! AutoSetFileHead()
 
     " python
     if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# encoding: utf-8")
+        call setline(1, "def main():")
+        call append(1, "    n = int(input())")
+        call append(2, "")
+        call append(3, "")
+        call append(4, "if __name__ == \"__main__\":")
+        call append(5, "    main()")
     endif
 
     normal G
@@ -193,10 +197,9 @@ nnoremap <leader>q :q<CR>
 " Quickly save the current file
 nnoremap <leader>w :w<CR>
 nnoremap <leader>n :nohl<CR>
-nnoremap <leader>p :w !clip.exe<CR><CR>
-
+nnoremap <leader>p :ggyG<CR>
 " for cp init
-nnoremap <leader>t :TemplateInit<CR>
+nnoremap <leader>t :1,$d \| call AutoSetFileHead() \| 2<CR>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -255,6 +258,3 @@ colorscheme oceanic_material
 
 set shortmess=a
 set cmdheight=2
-
-map <C-c> :s/^/\/\//<Enter>
-map <C-u> :s/^\/\///<Enter>
