@@ -34,7 +34,14 @@ vim.opt.rtp:prepend(lazypath)
 --     opts: The table will be passed to the require(...).setup(opts)
 require("lazy").setup({
 	-- Colorscheme
-	"tanvirtin/monokai.nvim",
+	-- "tanvirtin/monokai.nvim",
+	{ 
+		"ellisonleao/gruvbox.nvim", 
+		priority = 1000 , 
+		config = function()
+			require("config.color")
+		end,
+	},
 	-- Autopairs: [], (), "", '', etc
 	{
 		"windwp/nvim-autopairs",

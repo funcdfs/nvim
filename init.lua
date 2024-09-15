@@ -8,4 +8,5 @@ require("keymaps")
 require("plugins")
 
 -- Set colorscheme
-require("colorscheme")
+vim.o.background = "dark" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
