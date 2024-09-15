@@ -13,7 +13,6 @@ vim.api.nvim_set_keymap('n', '<TAB>', '%', {noremap = true})
 vim.api.nvim_set_keymap('n', 'H', '^', {noremap = true})
 vim.api.nvim_set_keymap('n', 'L', '$', {noremap = true})
 vim.api.nvim_set_keymap('n', ';', ':', {noremap = true})
-vim.api.nvim_set_keymap('n', 'dw', 'bdw', {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', {noremap = true})
