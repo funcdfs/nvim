@@ -34,14 +34,41 @@ vim.opt.rtp:prepend(lazypath)
 --     opts: The table will be passed to the require(...).setup(opts)
 require("lazy").setup({
 	-- Colorscheme
-	-- "tanvirtin/monokai.nvim",
-	{ 
-		"ellisonleao/gruvbox.nvim", 
-		priority = 1000 , 
+	
+	-- changetheme1
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		require("config.color")
+	-- 	end,
+	-- },
+
+	-- changetheme1
+	-- { 
+	-- 	"ellisonleao/gruvbox.nvim", 
+	-- 	priority = 1000 , 
+	-- 	config = function()
+	-- 		require("config.color")
+	-- 	end,
+	-- },
+
+	{
+		"gmr458/vscode_modern_theme.nvim",
+		lazy = false,
+		priority = 1000,
 		config = function()
-			require("config.color")
+			require("vscode_modern").setup({
+				cursorline = true,
+				transparent_background = true,
+				nvim_tree_darker = true,
+			})
+			vim.cmd.colorscheme("vscode_modern")
 		end,
 	},
+	
+	
 	-- Autopairs: [], (), "", '', etc
 	{
 		"windwp/nvim-autopairs",
