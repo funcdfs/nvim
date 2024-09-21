@@ -14,4 +14,4 @@ Lazy.nvim added, You can add any plugins you want.
 
 ---
 
-<img width="1218" alt="image" src="https://github.com/user-attachments/assets/5508723f-e59c-459c-a0b3-a04f77dc96c7">
+<img width="1481" alt="image" src="https://github.com/user-attachments/assets/1fac7052-c3c5-42cd-a120-b97b5fe5c5b9">
