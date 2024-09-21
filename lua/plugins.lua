@@ -95,13 +95,5 @@ require("lazy").setup({
 		config = function()
 			require("config.indent-blankline")
 		end,
-	},
-	-- Better terminal integration
-	{
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		config = function()
-			require("config.toggleterm")
-		end,
-	},
+	}
 })
