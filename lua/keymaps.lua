@@ -33,11 +33,29 @@ vim.cmd([[
 -- 保存到剪贴板并执行多次回车
 -- vim.api.nvim_set_keymap('n', '<F7>', ':w !clip.exe<CR><CR>', { noremap = true, silent = true })
 
+-- leader key is '\'
+vim.g.mapleader = '\\'
+
+-- Quickly close the current window
+vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
+
+-- Quickly save the current file
+vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })
+
+-- Quickly delete all content
+vim.api.nvim_set_keymap('n', '<Leader>d', 'ggdG', { noremap = true, silent = true })
+
+-- When in Normal Mode, quickly copy all content to system clipboard
+vim.api.nvim_set_keymap('n', '<Leader>c', 'ggVG"+y', { noremap = true, silent = true })
+
+-- When in Visual Mode, quickly copy selected content to system clipboard
+vim.api.nvim_set_keymap('v', '<leader>c', '"+y', { noremap = true, silent = true })
+
 
 
 -- 'kj' 作为 Esc 键
 vim.api.nvim_set_keymap('i', 'kj', '<Esc>', {noremap = true, nowait = true})
-vim.o.timeoutlen = 800
+vim.o.timeoutlen = 200
 
 -- 方括号跳转
 vim.api.nvim_set_keymap('n', '<TAB>', '%', { noremap = true, silent = true })
@@ -49,31 +67,17 @@ vim.api.nvim_set_keymap('n', 'U', '<C-r>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>/', ':nohls<CR>', { noremap = true, silent = true })
 
 -- Shift+H 跳转到行头，Shift+L 跳转到行尾
-
 vim.api.nvim_set_keymap('n', 'H', '^', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'L', '$', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('x', 'H', '^', { noremap = true, silent = true })  -- 选中模式
-vim.api.nvim_set_keymap('x', 'L', '$', { noremap = true, silent = true })  -- 选中模式
-vim.api.nvim_set_keymap('n', 'dL', 'd$', { noremap = true, silent = true })  -- 删除到行尾
-vim.api.nvim_set_keymap('n', 'dH', 'd^', { noremap = true, silent = true })  -- 删除到行头
-
--- leader 键为 '\'
-vim.g.mapleader = '\\'
-
--- 快速关闭当前窗口
-vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>Q', ':q!<CR>', { noremap = true, silent = true })
-
--- 快速保存当前文件
-vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>W', ':w!<CR>', { noremap = true, silent = true })
-
--- 快速复制全部内容
-vim.api.nvim_set_keymap('n', '<leader>c', 'ggVG"+y', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>y', 'ggyG', { noremap = true, silent = true })
-
--- 快速删除全部内容
-vim.api.nvim_set_keymap('n', '<leader>d', 'ggdG', { noremap = true, silent = true })
+-- In Visual mode
+vim.api.nvim_set_keymap('v', 'H', '^', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'L', '$', { noremap = true, silent = true })
+-- In Operator-pending mode
+vim.api.nvim_set_keymap('o', 'H', '^', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('o', 'L', '$', { noremap = true, silent = true })
+-- In Select mode
+vim.api.nvim_set_keymap('x', 'H', '^', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', 'L', '$', { noremap = true, silent = true })
 
 -- 在搜索时保持搜索模式在屏幕中央
 vim.api.nvim_set_keymap('n', 'n', 'nzz', { noremap = true, silent = true })
