@@ -5,6 +5,13 @@ local opts = {
 }
 
 
+
+
+local bind = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+
+
 -- F 相关，没有 touchbar 的时候再说。
 
 -- 保存到剪贴板
@@ -34,6 +41,7 @@ vim.cmd([[
 
 -- 'kj' 作为 Esc 键
 vim.api.nvim_set_keymap('i', 'kj', '<Esc>', {noremap = true, nowait = true})
+vim.o.timeoutlen = 200
 
 -- 方括号跳转
 vim.api.nvim_set_keymap('n', '<TAB>', '%', { noremap = true, silent = true })
@@ -77,4 +85,3 @@ vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
 
 -- Y 操作行为类似其他大写字母命令
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true, silent = true })
-

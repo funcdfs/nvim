@@ -32,29 +32,7 @@ vim.opt.rtp:prepend(lazypath)
 --     keys: string? | string[] | LazyKeysSpec table
 --           Lazy-load on key mapping
 --     opts: The table will be passed to the require(...).setup(opts)
-require("lazy").setup({
-	-- Colorscheme
-	-- {
-	-- 	"Mofiqul/vscode.nvim",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		local c = require('vscode.colors').get_colors()
-	-- 		require('vscode').setup({
-	-- 			-- Alternatively set style in setup
-	-- 			-- style = 'light'
-	-- 			-- Enable transparent background
-	-- 			transparent = true,
-	-- 			-- Enable italic comment
-	-- 			italic_comments = false,
-	-- 		})
-	-- 		-- require('vscode').load()
-			
-	-- 		-- load the theme without affecting devicon colors.
-	-- 		vim.cmd.colorscheme "vscode"
-	-- 	end,
-	-- },
-	
+require("lazy").setup({	
 	{ 
 		"catppuccin/nvim", name = "catppuccin",
 		config = function()
@@ -66,7 +44,7 @@ require("lazy").setup({
 				},
 				transparent_background = true, -- disables setting the background color.
 				show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-				term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+				term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
 				dim_inactive = {
 					enabled = false, -- dims the background color of inactive window
 					shade = "dark",
