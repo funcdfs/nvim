@@ -1,7 +1,7 @@
 -- Hint: use `:h <option>` to figure out the meaning if needed
 -- 提示：如果需要，可以使用`:h <选项>`来了解其含义
 
-vim.opt.clipboard = "unnamedplus" -- use system clipboard
+-- vim.opt.clipboard = "unnamedplus" -- use system clipboard
 -- 将 Vim 的 clipboard（剪贴板）选项设置为"unnamedplus"，以便使用系统剪贴板。
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
