@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 -- After installation, run `checkhealth lazy` to see if everything goes right
@@ -33,28 +34,13 @@ vim.opt.rtp:prepend(lazypath)
 --           Lazy-load on key mapping
 --     opts: The table will be passed to the require(...).setup(opts)
 require("lazy").setup({	
+	-- 
+
+	-- colors 
 	{ 
 		"catppuccin/nvim", name = "catppuccin",
 		config = function()
-			require("catppuccin").setup({
-				flavour = "mocha", -- latte, frappe, macchiato, mocha
-				background = { -- :h background
-					light = "latte",
-					dark = "mocha",
-				},
-				transparent_background = true, -- disables setting the background color.
-				show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-				term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
-				dim_inactive = {
-					enabled = false, -- dims the background color of inactive window
-					shade = "dark",
-					percentage = 0.15, -- percentage of the shade to apply to the inactive window
-				},
-				no_italic = true, -- Force no italic
-				no_bold = false, -- Force no bold
-				no_underline = false, -- Force no underline
-			})
-			vim.cmd.colorscheme "catppuccin"
+			require("colors")
 		end,
 	},
 	

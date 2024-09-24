@@ -60,3 +60,9 @@ vim.opt.ignorecase = true -- ignore case in searches by default
 
 vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entered
 -- 但如果输入了大写字母，则进行区分大小写的搜索。
+
+
+-- 禁止创建备份文件
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false

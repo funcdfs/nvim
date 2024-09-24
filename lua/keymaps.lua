@@ -4,12 +4,8 @@ local opts = {
     silent = true,       -- do not show message
 }
 
-
-
-
 local bind = vim.keymap.set
 local opts = { noremap = true, silent = true }
-
 
 
 -- F 相关，没有 touchbar 的时候再说。
@@ -41,7 +37,7 @@ vim.cmd([[
 
 -- 'kj' 作为 Esc 键
 vim.api.nvim_set_keymap('i', 'kj', '<Esc>', {noremap = true, nowait = true})
-vim.o.timeoutlen = 200
+vim.o.timeoutlen = 800
 
 -- 方括号跳转
 vim.api.nvim_set_keymap('n', '<TAB>', '%', { noremap = true, silent = true })
@@ -53,17 +49,24 @@ vim.api.nvim_set_keymap('n', 'U', '<C-r>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>/', ':nohls<CR>', { noremap = true, silent = true })
 
 -- Shift+H 跳转到行头，Shift+L 跳转到行尾
+
 vim.api.nvim_set_keymap('n', 'H', '^', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'L', '$', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', 'H', '^', { noremap = true, silent = true })  -- 选中模式
+vim.api.nvim_set_keymap('x', 'L', '$', { noremap = true, silent = true })  -- 选中模式
+vim.api.nvim_set_keymap('n', 'dL', 'd$', { noremap = true, silent = true })  -- 删除到行尾
+vim.api.nvim_set_keymap('n', 'dH', 'd^', { noremap = true, silent = true })  -- 删除到行头
 
 -- leader 键为 '\'
 vim.g.mapleader = '\\'
 
 -- 快速关闭当前窗口
 vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>Q', ':q!<CR>', { noremap = true, silent = true })
 
 -- 快速保存当前文件
 vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>W', ':w!<CR>', { noremap = true, silent = true })
 
 -- 快速复制全部内容
 vim.api.nvim_set_keymap('n', '<leader>c', 'ggVG"+y', { noremap = true, silent = true })
