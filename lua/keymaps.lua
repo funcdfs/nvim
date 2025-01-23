@@ -92,3 +92,6 @@ vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
 
 -- Y 操作行为类似其他大写字母命令
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true, silent = true })
+
+-- paste and indent
+vim.keymap.set('n', '<Leader>v', 'i<C-r><C-o>+<ESC>l=`[`]$', { desc = 'Paste block and indent'})
