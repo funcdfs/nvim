@@ -23,7 +23,7 @@ if vim.g.neovide then
     vim.g.neovide_confirm_quit = true
     vim.g.neovide_remember_window_size = true
     vim.g.neovide_cursor_vfx_mode = "railgun"
-    vim.g.neovide_transparency = 0.7
+    vim.g.neovide_opacity = 0.7
     vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
     vim.keymap.set('v', '<D-c>', '"+y') -- Copy
     vim.keymap.set('n', '<D-v>', '"+P') -- Paste normal mode
