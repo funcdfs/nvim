@@ -17,12 +17,13 @@ if vim.g.neovide then
     -- Put anything you want to happen only in Neovide 
     vim.o.guifont = "Source Code Pro:h14" -- text below applies for VimScript
     vim.g.neovide_scroll_animation_length = 0.2
-    vim.g.neovide_cursor_trail_size = 0.4
-    vim.g.neovide_cursor_animation_length = 0.13
+    vim.g.neovide_cursor_trail_size = 0.3
+    vim.g.neovide_cursor_animation_length = 0.15
     vim.g.neovide_window_blurred = true
     vim.g.neovide_confirm_quit = true
     vim.g.neovide_remember_window_size = true
-    vim.g.neovide_cursor_vfx_mode = "railgun"
+    vim.g.neovide_cursor_vfx_mode = "pixiedust"
+    vim.g.neovide_cursor_vfx_particle_density = 1.2
     vim.g.neovide_opacity = 0.7
     vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
     vim.keymap.set('v', '<D-c>', '"+y') -- Copy
