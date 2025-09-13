@@ -33,15 +33,22 @@ vim.opt.rtp:prepend(lazypath)
 --     keys: string? | string[] | LazyKeysSpec table
 --           Lazy-load on key mapping
 --     opts: The table will be passed to the require(...).setup(opts)
-require("lazy").setup({	
-	-- 
-
-	-- colors 
+-- 配置 lazy.nvim 以禁用 luarocks 和 hererocks
+require("lazy").setup({
+	-- 禁用 luarocks 支持以避免警告
+	rocks = { enabled = false },
+	
+	-- colors
 	{ 
-		"catppuccin/nvim", name = "catppuccin",
-		config = function()
-			require("colors")
-		end,
+		"catppuccin/nvim", 
+		name = "catppuccin",
+		lazy = false,
+		priority = 1000,
+	},
+	{
+		"sainnhe/gruvbox-material",
+		lazy = false,
+		priority = 1000,
 	},
 	
 	-- Autopairs: [], (), "", '', etc
@@ -49,7 +56,7 @@ require("lazy").setup({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = function()
-			require("config.nvim-autopairs")
+			require("plugins.configs.nvim-autopairs")
 		end,
 	},
 	-- Show indentation and blankline
@@ -57,7 +64,50 @@ require("lazy").setup({
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		config = function()
-			require("config.indent-blankline")
+			require("plugins.configs.indent-blankline")
 		end,
-	}
+	},
+
+	-- LSP 功能已移除，保持轻量配置
+
+	-- Snippet engine (load before cmp)
+	{
+		"L3MON4D3/LuaSnip",
+		version = "v2.*",
+		build = "make install_jsregexp",
+		config = function()
+			require("plugins.configs.luasnip")
+		end,
+		-- No dependencies needed for custom snippets only
+	},
+
+	-- Autocompletion
+	{
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		config = function()
+			require("plugins.configs.nvim-cmp")
+		end,
+		dependencies = {
+			"hrsh7th/cmp-buffer",      -- buffer 补全
+			"hrsh7th/cmp-path",        -- 路径补全
+			"hrsh7th/cmp-cmdline",     -- 命令行补全
+			"L3MON4D3/LuaSnip",        -- 代码片段引擎
+			"saadparwaiz1/cmp_luasnip", -- LuaSnip 补全源
+			-- LSP 相关依赖已移除
+		},
+	},
+
+	-- Treesitter 已移除，使用 Neovim 内置语法高亮
+
+	-- 图标功能已移除，保持轻量配置
+
+	-- Which-key for leader key management
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy", -- 较晚加载避免循环依赖
+		config = function()
+			require("plugins.configs.which-key")
+		end,
+	},
 })

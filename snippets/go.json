@@ -1,0 +1,419 @@
+{
+    "ii": {
+        "prefix": "ii",
+        "body": [
+            "input[int]()\n$0"
+        ],
+        "description": "ii"
+    },
+    "i1": {
+        "prefix": "i1",
+        "body": [
+            "input[int]()\n$0"
+        ],
+        "description": "i1"
+    },
+    "i2": {
+        "prefix": "i2",
+        "body": [
+            "input[int](), input[int]()\n$0"
+        ],
+        "description": "i2"
+    },
+    "i3": {
+        "prefix": "i3",
+        "body": [
+            "input[int](), input[int](), input[int]()\n$0"
+        ],
+        "description": "i3"
+    },
+    "i4": {
+        "prefix": "i4",
+        "body": [
+            "input[int](), input[int](), input[int](), input[int]()\n$0"
+        ],
+        "description": "i4"
+    },
+    "i5": {
+        "prefix": "i5",
+        "body": [
+            "input[int](), input[int](), input[int](), input[int](), input[int]()\n$0"
+        ],
+        "description": "i5"
+    },
+    "ia": {
+        "prefix": "ia",
+        "body": [
+            "inputSlice[int](n) \n$0"
+        ],
+        "description": "ia"
+    },
+    "is": {
+        "prefix": "is",
+        "body": [
+            "input[[]byte]()\n"
+        ],
+        "description": "input  byte version string"
+    },
+    "printlnNo": {
+        "prefix": "printlnNo",
+        "body": [
+            "println(\"NO\") $0"
+        ],
+        "description": "println No"
+    },
+    "printlnYes": {
+        "prefix": "printlnYes",
+        "body": [
+            "println(\"YES\") $0"
+        ],
+        "description": "println Yes"
+    },
+    "printlnNO": {
+        "prefix": "printlnNO",
+        "body": [
+            "println(\"NO\") $0"
+        ],
+        "description": "println NO"
+    },
+    "printlnYES": {
+        "prefix": "printlnYES",
+        "body": [
+            "println(\"YES\") $0"
+        ],
+        "description": "println YES"
+    },
+    "println": {
+        "prefix": "plnn",
+        "body": [
+            "println(\"\") \n$0"
+        ],
+        "description": "print endl"
+    },
+    "dbg": {
+        "prefix": "dbg",
+        "body": [
+            "log.Println($1) $0"
+        ],
+        "description": "dbg"
+    },
+    "chec": {
+        "prefix": "chec",
+        "body": [
+            "check := func() bool {",
+            "\t$0",
+            "\treturn true",
+            "}",
+            "if check() == true {",
+            "\tprintln(\"YES\")",
+            "} else {",
+            "\tprintln(\"NO\")",
+            "}"
+        ],
+        "description": "check function YES NO"
+    },
+    "copy": {
+        "prefix": "copy",
+        "body": [
+            "$1 := make([]$2, len($3))",
+            "copy($1, $3)",
+            "$0"
+        ],
+        "description": "qucikly copy a slice"
+    },
+    "islower": {
+        "prefix": "islower",
+        "body": [
+            "$1 >= 'a' && $1 <= 'z' $0"
+        ],
+        "description": "[]byte string islower"
+    },
+    "tolower": {
+        "prefix": "tolower",
+        "body": [
+            "byte(int($1) - (int('A')-int('a'))) $0"
+        ],
+        "description": "[]byte string tolower"
+    },
+    "isupper": {
+        "prefix": "isupper",
+        "body": [
+            "$1 >= 'A' && $1 <= 'Z' $0"
+        ],
+        "description": "[]byte string isupper"
+    },
+    "toupper": {
+        "prefix": "toupper",
+        "body": [
+            "byte(int($1) + (int('A')-int('a'))) $0"
+        ],
+        "description": "[]byte string toupper"
+    },
+    "int to []byte slice": {
+        "prefix": "inttobyte",
+        "body": [
+            "[]byte(strconv.Itoa($1)) $0"
+        ],
+        "description": "int to []byte slice"
+    },
+    "[]byte slice to int": {
+        "prefix": "bytetoint",
+        "body": [
+            "strconv.Atoi(string($1))",
+            "if err != nil {",
+            "\tprintln(\"convert []byte to int error\")",
+            "}$0"
+        ],
+        "description": "int to []byte slice"
+    },
+    "sortint": {
+        "prefix": "sortslices",
+        "body": [
+            "slices.SortFunc($1, func(_x1, _x2 int) int {",
+            "\treturn cmp.Compare(_x1, _x2)",
+            "})",
+            "$0"
+        ],
+        "description": "int to []byte slice"
+    },
+    "sortintreverse": {
+        "prefix": "sortreverse",
+        "body": [
+            "slices.SortFunc($1, func(_x1, _x2 int) int {",
+            "\treturn cmp.Compare(_x2, _x1)",
+            "})",
+            "$0"
+        ],
+        "description": "int to []byte slice"
+    },
+    "tt": {
+        "prefix": "tt",
+        "body": [
+            "// #region main",
+            "package main",
+            "",
+            "import (",
+            "\t\"bufio\"",
+            "\t\"fmt\"",
+            "\t\"os\"",
+            ")",
+            "",
+            "var _in, _out = new(bufio.Reader), new(bufio.Writer)",
+            "",
+            "func _github_funcdfs[T any](sep, end string, arr ...T) {",
+            "\tfor idx := range arr {",
+            "\t\tfmt.Fprint(_out, arr[idx])",
+            "\t\tif idx == len(arr)-1 {",
+            "\t\t\tfmt.Fprint(_out, end)",
+            "\t\t} else {",
+            "\t\t\tfmt.Fprint(_out, sep)",
+            "\t\t}",
+            "\t}",
+            "}",
+            "func main() {",
+            "\t_in = bufio.NewReader(os.Stdin)",
+            "\t_out = bufio.NewWriter(os.Stdout)",
+            "\tdefer _out.Flush()",
+            "\ttestCaseCnt := input[int]()",
+            "\tfor i := 0; i < testCaseCnt; i++ {",
+            "\t\tsolve(i + 1)",
+            "\t}",
+            "}",
+            "func input[T any]() T { var value T; fmt.Fscan(_in, &value); return value }",
+            "func inputSlice[T any](size int) []T {",
+            "\tdata := make([]T, size)",
+            "\tfor idx := 0; idx < size; idx++ {",
+            "\t\tdata[idx] = input[T]()",
+            "\t}",
+            "\treturn data",
+            "}",
+            "func print[T any](arr ...T)   { _github_funcdfs(\"\", \"\", arr...) }",
+            "func println[T any](arr ...T) { _github_funcdfs(\" \", \"\\n\", arr...) }",
+            "",
+            "// #endregion main",
+            "",
+            "// ----------------------------- /* Start of useful functions */ -----------------------------",
+            "func solve(_case int) {",
+            "",
+            "\t$0",
+            "",
+            "}",
+            "",
+            "// ----------------------------- /* End of useful functions */ -------------------------------",
+            ""
+        ],
+        "description": "tt"
+    },
+    "ttna": {
+        "prefix": "ttna",
+        "body": [
+            "// #region main",
+            "package main",
+            "",
+            "import (",
+            "\t\"bufio\"",
+            "\t\"fmt\"",
+            "\t\"os\"",
+            ")",
+            "",
+            "var _in, _out = new(bufio.Reader), new(bufio.Writer)",
+            "",
+            "func _github_funcdfs[T any](sep, end string, arr ...T) {",
+            "\tfor idx := range arr {",
+            "\t\tfmt.Fprint(_out, arr[idx])",
+            "\t\tif idx == len(arr)-1 {",
+            "\t\t\tfmt.Fprint(_out, end)",
+            "\t\t} else {",
+            "\t\t\tfmt.Fprint(_out, sep)",
+            "\t\t}",
+            "\t}",
+            "}",
+            "func main() {",
+            "\t_in = bufio.NewReader(os.Stdin)",
+            "\t_out = bufio.NewWriter(os.Stdout)",
+            "\tdefer _out.Flush()",
+            "\ttestCaseCnt := input[int]()",
+            "\tfor i := 0; i < testCaseCnt; i++ {",
+            "\t\tsolve(i + 1)",
+            "\t}",
+            "}",
+            "func input[T any]() T { var value T; fmt.Fscan(_in, &value); return value }",
+            "func inputSlice[T any](size int) []T {",
+            "\tdata := make([]T, size)",
+            "\tfor idx := 0; idx < size; idx++ {",
+            "\t\tdata[idx] = input[T]()",
+            "\t}",
+            "\treturn data",
+            "}",
+            "func print[T any](arr ...T)   { _github_funcdfs(\"\", \"\", arr...) }",
+            "func println[T any](arr ...T) { _github_funcdfs(\" \", \"\\n\", arr...) }",
+            "",
+            "// #endregion main",
+            "",
+            "// ----------------------------- /* Start of useful functions */ -----------------------------",
+            "func solve(_case int) {",
+            "",
+            "\tn := input[int]()",
+            "\ta := inputSlice[int](n)",
+            "",
+            "\t$0",
+            "",
+            "}",
+            "",
+            "// ----------------------------- /* End of useful functions */ -------------------------------",
+            ""
+        ],
+        "description": "ttna"
+    },
+    "cp": {
+        "prefix": "cp",
+        "body": [
+            "// #region main",
+            "package main; import ( \"bufio\"; \"fmt\"; \"os\"; ); var _in, _out = new(bufio.Reader), new(bufio.Writer)",
+            "func _github_funcdfs[T any](sep, end string, arr ...T) { for idx := range arr { fmt.Fprint(_out, arr[idx]); if idx == len(arr)-1 { fmt.Fprint(_out, end); } else { fmt.Fprint(_out, sep) } } }",
+            "func main() { _in = bufio.NewReader(os.Stdin); _out = bufio.NewWriter(os.Stdout); defer _out.Flush(); solve() }",
+            "func input      [T any] ()           T { var value T; fmt.Fscan(_in, &value); return value }",
+            "func inputSlice [T any] (size int) []T { data := make([]T, size); for idx := 0; idx < size; idx++ { data[idx] = input[T](); }; return data }",
+            "func print      [T any] (arr ...T)     { _github_funcdfs(\"\", \"\", arr...) }",
+            "func println    [T any] (arr ...T)     { _github_funcdfs(\" \", \"\\n\", arr...) }",
+            "// #endregion main",
+            "",
+            "",
+            "// ----------------------------- /* Start of useful functions */ -----------------------------",
+            "",
+            "func solve() {",
+            "",
+            "\t$0",
+            "",
+            "}",
+            "",
+            "// ----------------------------- /* End of useful functions */ -------------------------------"
+        ],
+        "description": "cp"
+    },
+    "algoGcd Gcd 函数声明": {
+        "prefix": "algoGcd",
+        "body": [
+            "func gcd(a, b int) int {",
+            "\tif b == 0 {",
+            "\t\treturn a",
+            "\t}",
+            "\treturn gcd(b, a%b)",
+            "}"
+        ],
+        "description": "Gcd 函数声明"
+    },
+    "algoUnique Unique 函数声明": {
+        "prefix": "algoUnique",
+        "body": [
+            "func unique[T comparable](l ...T) []T {",
+            "\tm := map[T]bool{}",
+            "\tfor _, v := range l {",
+            "\t\tm[v] = true",
+            "\t}",
+            "\tres := []T{}",
+            "\tfor v := range m {",
+            "\t\tres = append(res, v)",
+            "\t}",
+            "\treturn res",
+            "}"
+        ],
+        "description": "Unique 函数声明"
+    },
+    "algoCab Cab 排列组合": {
+        "prefix": "algoCab",
+        "body": [
+            "func cab(aa, bb int64) int64 { // C(a, b) = C_{a}^{b}",
+            "\tans := int64(1)",
+            "\tfor i, j := aa, int64(1); j <= bb; i, j = i-1, j+1 {",
+            "\t\tans = ans * i / j",
+            "\t}",
+            "\treturn ans",
+            "}",
+            ""
+        ],
+        "description": "Cab 排列组合"
+    },
+    "algoMax": {
+        "prefix": "algoMax",
+        "body": [
+            "func max[T int | int64 | float32 | float64](x ...T) T {",
+            "\tmaxVal := x[0]",
+            "\tfor _, v := range x {",
+            "\t\tif v > maxVal {",
+            "\t\t\tmaxVal = v ",
+            "\t\t}",
+            "\t}",
+            "\treturn maxVal",
+            "}"
+        ],
+        "description": "algomax"
+    },
+    "algoMin": {
+        "prefix": "algoMin",
+        "body": [
+            "func min[T int | int64 | float32 | float64](x ...T) T {",
+            "\tminVal := x[0]",
+            "\tfor _, v := range x {",
+            "\t\tif v < minVal {",
+            "\t\t\tminVal = v ",
+            "\t\t}",
+            "\t}",
+            "\treturn minVal",
+            "}"
+        ],
+        "description": "algomin"
+    },
+    "algoAbs": {
+        "prefix": "algoAbs",
+        "body": [
+            "func abs[T int | int64 | float32 | float64](x T) T {",
+            "\tif x < T(0) {",
+            "\t\treturn -x",
+            "\t}",
+            "\treturn x",
+            "}"
+        ],
+        "description": "algoAbs"
+    }
+}
