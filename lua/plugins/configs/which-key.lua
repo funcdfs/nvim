@@ -23,8 +23,8 @@ wk.setup({
         if ctx.keys and ctx.keys:find(vim.g.mapleader or "\\") then
             return 0
         end
-        -- Other keys: wait 2.5 seconds
-        return 2500
+        -- Other keys: wait 1 second (more reasonable)
+        return 1000
     end,
     notify = true,
     -- Auto-detect all possible key combinations
@@ -58,21 +58,28 @@ wk.setup({
 -- ============================================================================
 
 wk.add({
+    -- 文件操作
     { "<leader>w", desc = "保存文件" },
     { "<leader>q", desc = "退出" },
     { "<leader>x", desc = "保存并退出" },
+    
+    -- 编辑操作
     { "<leader>c", desc = "复制内容" },
     { "<leader>p", desc = "粘贴内容" },
     { "<leader>d", desc = "删除全部" },
     { "<leader>s", desc = "清除高亮" },
+    
+    -- C/C++ 格式化
     { "<leader>f", desc = "C/C++ 格式化" },
+    { "<leader>F", desc = "格式化并保存" },
+    { "<leader>fi", desc = "格式化配置信息" },
     
     -- 主题切换
     { "<leader>t", group = "主题" },
     { "<leader>tc", desc = "Catppuccin 主题" },
     { "<leader>tg", desc = "Gruvbox 主题" },
     
-    -- 工具
+    -- 工具设置
     { "<leader>sc", group = "设置" },
     { "<leader>scf", desc = "复制 .clang-format" },
 })

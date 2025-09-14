@@ -1,22 +1,40 @@
 -- ============================================================================
--- 自动命令（专注 C++ 编辑）
+-- Auto Commands for C++ Development
 -- ============================================================================
 
--- C++ 文件使用 3 空格缩进（与 .clang-format 一致）
+local augroup = vim.api.nvim_create_augroup("CppDevelopment", { clear = true })
+
+-- C++ file specific settings (match .clang-format)
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "cpp", "c", "hpp", "h" },
+    group = augroup,
+    pattern = { "cpp", "c", "h", "hpp" },
     callback = function()
-        vim.opt_local.tabstop = 3
-        vim.opt_local.shiftwidth = 3
-        vim.opt_local.softtabstop = 3
-        vim.opt_local.expandtab = true
+        local opt = vim.opt_local
+        opt.tabstop = 3
+        opt.shiftwidth = 3
+        opt.softtabstop = 3
+        opt.expandtab = true
     end,
+    desc = "Set C++ specific indentation"
 })
 
--- Auto-reload snippets when modified
+-- Auto-reload snippets when modified (optimized)
 vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = vim.fn.stdpath("config") .. "/snippets/*.json",
-    callback = function()
-        vim.cmd("silent! lua require('luasnip.loaders.from_vscode').lazy_load({ paths = { vim.fn.stdpath('config') .. '/snippets' } })")
+    group = augroup,
+    pattern = "*/snippets/*.json",
+    callback = function(event)
+        -- Only reload if it's actually in our config directory
+        local config_dir = vim.fn.stdpath("config")
+        if event.file:find(config_dir, 1, true) then
+            -- Defer the reload to not block the write operation
+            vim.defer_fn(function()
+                local ok, loader = pcall(require, "luasnip.loaders.from_vscode")
+                if ok then
+                    loader.lazy_load({ paths = { config_dir .. "/snippets" } })
+                    vim.notify("Snippets reloaded", vim.log.levels.INFO)
+                end
+            end, 100)
+        end
     end,
+    desc = "Auto-reload snippets on save"
 })

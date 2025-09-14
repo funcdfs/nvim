@@ -151,14 +151,14 @@ cmp.setup({
         select = false,
     },
     
-    -- 性能优化（增加延迟减少频繁弹出）
+    -- 性能优化（平衡响应速度和性能）
     performance = {
-        debounce = 550,        -- 增加延迟到 550ms，减少频繁触发
-        throttle = 60,         -- 增加节流到 60ms
+        debounce = 100,        -- 减少延迟到 100ms，提高响应速度
+        throttle = 30,         -- 节流 30ms
         fetching_timeout = 500,
         confirm_resolve_timeout = 80,
         async_budget = 1,
-        max_view_entries = 200,
+        max_view_entries = 50,  -- 减少最大显示条目提高性能
     },
 })
 

@@ -20,13 +20,14 @@ local snippets_dir = vim.fn.stdpath("config") .. "/snippets"
 local cpp_snippets_file = snippets_dir .. "/cpp.json"
 local package_json_file = snippets_dir .. "/package.json"
 
--- Load C++ snippets if they exist
+-- Load C++ snippets silently if they exist
 if vim.fn.filereadable(cpp_snippets_file) == 1 and vim.fn.filereadable(package_json_file) == 1 then
     -- 使用VSCode加载器加载整个目录（包含package.json）
     vscode_loader.load({ paths = { snippets_dir } })
-    print("✓ C++ snippets loaded from: " .. snippets_dir)
+    -- Use vim.notify for better notification management
+    vim.notify("C++ snippets loaded", vim.log.levels.INFO)
 else
-    print("⚠️ C++ snippets directory incomplete: " .. snippets_dir)
+    vim.notify("C++ snippets not found in " .. snippets_dir, vim.log.levels.WARN)
 end
 
 -- ============================================================================
@@ -51,24 +52,25 @@ end, {silent = true})
 local function list_cpp_snippets()
     local ft = vim.bo.filetype
     if ft ~= "cpp" and ft ~= "c" then
-        print("⚠️ Not a C/C++ file (current: " .. ft .. ")")
+        vim.notify("Not a C/C++ file (current: " .. ft .. ")", vim.log.levels.WARN)
         return
     end
     
     local available_snippets = luasnip.get_snippets(ft)
     
     if available_snippets and #available_snippets > 0 then
-        print("📋 Available C++ snippets:")
+        local snippet_list = {"📋 Available C++ snippets:"}
         for i, snip in ipairs(available_snippets) do
             local trigger = snip.trigger or "unknown"
             local desc = snip.dscr or snip.description or "No description"
             if type(desc) == "table" then
                 desc = table.concat(desc, " ")
             end
-            print(string.format("  %2d. %-15s - %s", i, trigger, desc))
+            table.insert(snippet_list, string.format("  %2d. %-15s - %s", i, trigger, desc))
         end
+        vim.notify(table.concat(snippet_list, "\n"), vim.log.levels.INFO)
     else
-        print("⚠️ No C++ snippets available")
+        vim.notify("No C++ snippets available", vim.log.levels.WARN)
     end
 end
 
@@ -80,6 +82,6 @@ vim.api.nvim_create_user_command('LuaSnipExpand', function()
     if luasnip.expandable() then
         luasnip.expand()
     else
-        print("⚠️ No expandable snippet at cursor")
+        vim.notify("No expandable snippet at cursor", vim.log.levels.WARN)
     end
 end, { desc = "Manually expand snippet at cursor" })

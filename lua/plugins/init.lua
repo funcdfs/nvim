@@ -1,5 +1,8 @@
--- Install Lazy.nvim automatically if it's not installed(Bootstraping)
--- Hint: string concatenation is done by `..`
+-- ============================================================================
+-- Plugin Manager Configuration (Lazy.nvim)
+-- ============================================================================
+
+-- Bootstrap lazy.nvim if not installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -7,43 +10,24 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
 
 vim.opt.rtp:prepend(lazypath)
 
--- After installation, run `checkhealth lazy` to see if everything goes right
--- Hints:
---     build: It will be executed when a plugin is installed or updated
---     config: It will be executed when the plugin loads
---     event: Lazy-load on event
---     dependencies: table
---                   A list of plugin names or plugin specs that should be loaded when the plugin loads.
---                   Dependencies are always lazy-loaded unless specified otherwise.
---     ft: Lazy-load on filetype
---     cmd: Lazy-load on command
---     init: Functions are always executed during startup
---     branch: string?
---             Branch of the repository
---     main: string?
---           Specify the main module to use for config() or opts()
---           , in case it can not be determined automatically.
---     keys: string? | string[] | LazyKeysSpec table
---           Lazy-load on key mapping
---     opts: The table will be passed to the require(...).setup(opts)
--- 配置 lazy.nvim 以禁用 luarocks 和 hererocks
+-- Configure and load plugins
 require("lazy").setup({
 	-- 禁用 luarocks 支持以避免警告
 	rocks = { enabled = false },
 	
-	-- colors
+	-- ========== Colorschemes ==========
 	{ 
 		"catppuccin/nvim", 
 		name = "catppuccin",
-		lazy = false,
-		priority = 1000,
+		lazy = false,  -- Load immediately for UI
+		priority = 1000,  -- Load before other plugins
 	},
 	{
 		"sainnhe/gruvbox-material",
@@ -51,61 +35,55 @@ require("lazy").setup({
 		priority = 1000,
 	},
 	
-	-- Autopairs: [], (), "", '', etc
+	-- ========== Editor Enhancement ==========
 	{
 		"windwp/nvim-autopairs",
-		event = "InsertEnter",
+		event = "InsertEnter",  -- Lazy load on insert
 		config = function()
 			require("plugins.configs.nvim-autopairs")
 		end,
 	},
-	-- Show indentation and blankline
+	
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
+		event = "BufReadPost",  -- Lazy load after buffer read
 		config = function()
 			require("plugins.configs.indent-blankline")
 		end,
 	},
 
-	-- LSP 功能已移除，保持轻量配置
-
-	-- Snippet engine (load before cmp)
+	-- ========== Snippets ==========
 	{
 		"L3MON4D3/LuaSnip",
 		version = "v2.*",
 		build = "make install_jsregexp",
+		event = "InsertEnter",  -- Lazy load
 		config = function()
 			require("plugins.configs.luasnip")
 		end,
-		-- No dependencies needed for custom snippets only
 	},
 
-	-- Autocompletion
+	-- ========== Completion ==========
 	{
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+		event = { "InsertEnter", "CmdlineEnter" },  -- Load for insert and command mode
 		config = function()
 			require("plugins.configs.nvim-cmp")
 		end,
 		dependencies = {
-			"hrsh7th/cmp-buffer",      -- buffer 补全
-			"hrsh7th/cmp-path",        -- 路径补全
-			"hrsh7th/cmp-cmdline",     -- 命令行补全
-			"L3MON4D3/LuaSnip",        -- 代码片段引擎
-			"saadparwaiz1/cmp_luasnip", -- LuaSnip 补全源
-			-- LSP 相关依赖已移除
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
 		},
 	},
 
-	-- Treesitter 已移除，使用 Neovim 内置语法高亮
-
-	-- 图标功能已移除，保持轻量配置
-
-	-- Which-key for leader key management
+	-- ========== UI Enhancement ==========
 	{
 		"folke/which-key.nvim",
-		event = "VeryLazy", -- 较晚加载避免循环依赖
+		event = "VeryLazy",
 		config = function()
 			require("plugins.configs.which-key")
 		end,
