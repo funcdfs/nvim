@@ -12,6 +12,23 @@ luasnip.config.setup({
     delete_check_events = 'InsertLeave',
 })
 
+-- Add post-expand callback for auto-folding
+local function setup_auto_fold()
+    luasnip.env_namespace("CPP_SNIPPETS", {
+        post_expand = function(snippet, event_args)
+            -- Check if this is a competitive programming snippet
+            local trigger = snippet.trigger
+            if trigger == "cp" or trigger == "tt" or trigger == "ttna" or 
+               trigger == "cps" or trigger == "old_cp" or trigger == "old_tt" then
+                -- Auto fold headers after snippet expansion
+                vim.defer_fn(function()
+                    require('core.folding').fold_after_snippet_expand()
+                end, 100)
+            end
+        end
+    })
+end
+
 -- Load VSCode style snippets
 local vscode_loader = require("luasnip.loaders.from_vscode")
 

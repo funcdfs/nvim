@@ -82,4 +82,12 @@ wk.add({
     -- 工具设置
     { "<leader>sc", group = "设置" },
     { "<leader>scf", desc = "复制 .clang-format" },
+    
+    -- 代码折叠
+    { "<leader>z", desc = "切换代码折叠" },
+    { "<leader>Z", desc = "递归切换折叠" },
+    { "<leader>zc", desc = "关闭折叠" },
+    { "<leader>zo", desc = "打开折叠" },
+    { "<leader>zm", desc = "关闭所有折叠" },
+    { "<leader>zr", desc = "打开所有折叠" },
 })

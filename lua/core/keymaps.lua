@@ -100,6 +100,14 @@ keymap('n', '<Leader>scf', function()
     require('core.utils').setup_clang_format()
 end, { desc = 'C++: 复制 .clang-format 配置' })
 
+-- 代码折叠
+keymap('n', '<Leader>z', 'za', { desc = '切换代码折叠' })
+keymap('n', '<Leader>Z', 'zA', { desc = '递归切换折叠' })
+keymap('n', '<Leader>zc', 'zc', { desc = '关闭折叠' })
+keymap('n', '<Leader>zo', 'zo', { desc = '打开折叠' })
+keymap('n', '<Leader>zm', 'zM', { desc = '关闭所有折叠' })
+keymap('n', '<Leader>zr', 'zR', { desc = '打开所有折叠' })
+
 -- ============================================================================
 -- 自动命令和特殊设置
 -- ============================================================================

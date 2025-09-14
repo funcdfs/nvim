@@ -6,6 +6,7 @@
 require("core.options")   -- Basic vim options
 require("core.keymaps")   -- Key mappings
 require("core.autocmds")  -- Auto commands
+require("core.folding").setup()  -- Folding configuration
 
 -- Load plugin manager and plugins
 require("plugins")

@@ -44,3 +44,10 @@ vim.opt.smartcase = true
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
+
+-- 折叠设置
+vim.opt.foldmethod = "expr"     -- 使用表达式折叠
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"  -- 如果没有 treesitter，会回退到 indent
+vim.opt.foldlevel = 99          -- 默认展开所有折叠
+vim.opt.foldcolumn = "0"        -- 不显示折叠列
+vim.opt.foldenable = true       -- 启用折叠功能

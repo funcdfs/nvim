@@ -1619,5 +1619,30 @@
             "#define cout fast_output"
         ],
         "description": "fastOutput"
+    },
+    "cps": {
+        "prefix": "cps",
+        "body": [
+            "#include <bits/stdc++.h>",
+            "using namespace std;",
+            "",
+            "#ifdef LOCAL",
+            "#include <algo/dbg.h>",
+            "#else",
+            "#define dbg(...)      ;",
+            "#define eprint(...)   ;",
+            "#define eprintln(...) ;",
+            "#endif",
+            "",
+            "int main() {",
+            "   ios::sync_with_stdio(false);",
+            "   cin.tie(nullptr);",
+            "   ",
+            "   $0",
+            "   ",
+            "   return 0;",
+            "}"
+        ],
+        "description": "Competitive Programming Simple - minimal template with bits/stdc++.h and dbg.h"
     }
 }
