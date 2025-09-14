@@ -90,4 +90,8 @@ wk.add({
     { "<leader>zo", desc = "打开折叠" },
     { "<leader>zm", desc = "关闭所有折叠" },
     { "<leader>zr", desc = "打开所有折叠" },
+    
+    -- C++ 头文件管理
+    { "<leader>dh", desc = "下载 C++ 头文件" },
+    { "<leader>ch", desc = "检查头文件状态" },
 })

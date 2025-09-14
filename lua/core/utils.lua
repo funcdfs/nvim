@@ -207,4 +207,120 @@ function M.show_format_info()
     end
 end
 
+-- 下载并安装 C++ 头文件 (bits/stdc++.h 和 algo/dbg.h)
+function M.download_cpp_headers()
+    vim.notify("🔧 开始安装 C++ 调试头文件和万能头文件...", vim.log.levels.INFO)
+    
+    -- 检查是否在 macOS
+    local uname = vim.fn.system("uname -s"):gsub("%s+", "")
+    if uname ~= "Darwin" then
+        vim.notify("⚠️ 此功能仅支持 macOS", vim.log.levels.WARN)
+        return false
+    end
+    
+    -- 目标路径
+    local bits_dir = "/usr/local/include/bits"
+    local algo_dir = "/usr/local/include/algo"
+    local stdcpp_file = bits_dir .. "/stdc++.h"
+    local dbg_file = algo_dir .. "/dbg.h"
+    
+    -- GitHub 原始文件链接 (使用正确的 URL)
+    local stdcpp_url = "https://raw.githubusercontent.com/funcdfs/Algorithm/main/Faster/stdc%2B%2B_simplify.h"
+    local dbg_url = "https://raw.githubusercontent.com/funcdfs/Algorithm/main/Faster/algo_dbg.h"
+    
+    -- 创建临时脚本
+    local script = string.format([[
+#!/bin/bash
+set -e
+
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+RESET="\033[0m"
+
+echo -e "${GREEN}🔧 开始安装 C++ 调试头文件和万能头文件...${RESET}"
+
+# 创建目录
+echo "📁 创建目录..."
+sudo mkdir -p "%s"
+sudo mkdir -p "%s"
+
+# 下载头文件
+echo "⬇️ 下载 bits/stdc++.h ..."
+sudo curl -fsSL "%s" -o "%s"
+
+echo "⬇️ 下载 algo/dbg.h ..."
+sudo curl -fsSL "%s" -o "%s"
+
+# 检查内容是否成功获取
+if [[ -s "%s" && -s "%s" ]]; then
+    echo -e "${GREEN}✅ 安装成功！${RESET}"
+    echo -e "${GREEN}📄 bits/stdc++.h -> %s${RESET}"
+    echo -e "${GREEN}📄 algo/dbg.h -> %s${RESET}"
+    echo ""
+    echo "现在可以使用："
+    echo "  #include <bits/stdc++.h>  // 万能头文件"
+    echo "  #include <algo/dbg.h>     // 调试专用头文件"
+    echo ""
+    echo "按任意键退出..."
+    read -n 1
+else
+    echo -e "${RED}❌ 下载失败，可能是网络或路径问题。${RESET}"
+    echo "按任意键退出..."
+    read -n 1
+    exit 1
+fi
+]], bits_dir, algo_dir, stdcpp_url, stdcpp_file, dbg_url, dbg_file, stdcpp_file, dbg_file, stdcpp_file, dbg_file)
+    
+    -- 写入临时脚本文件
+    local temp_script = vim.fn.tempname() .. "_install_cpp_headers.sh"
+    vim.fn.writefile(vim.split(script, "\n"), temp_script)
+    vim.fn.system("chmod +x " .. vim.fn.shellescape(temp_script))
+    
+    -- 在终端分屏中执行
+    vim.cmd("split | terminal " .. vim.fn.shellescape(temp_script))
+    
+    -- 注册自动命令删除临时文件
+    vim.api.nvim_create_autocmd("TermClose", {
+        pattern = temp_script,
+        once = true,
+        callback = function()
+            vim.fn.delete(temp_script)
+            -- 检查安装结果
+            if vim.fn.filereadable(stdcpp_file) == 1 and vim.fn.filereadable(dbg_file) == 1 then
+                vim.notify("✅ C++ 头文件安装成功！", vim.log.levels.INFO)
+            end
+        end
+    })
+    
+    return true
+end
+
+-- 检查 C++ 头文件状态
+function M.check_cpp_headers()
+    local stdcpp_file = "/usr/local/include/bits/stdc++.h"
+    local dbg_file = "/usr/local/include/algo/dbg.h"
+    
+    print("=== C++ 头文件状态 ===")
+    print("")
+    
+    if vim.fn.filereadable(stdcpp_file) == 1 then
+        print("✓ bits/stdc++.h: 已安装")
+        local size = vim.fn.getfsize(stdcpp_file)
+        print("  文件大小: " .. size .. " bytes")
+    else
+        print("✗ bits/stdc++.h: 未安装")
+        print("  使用 \\dh 安装")
+    end
+    
+    if vim.fn.filereadable(dbg_file) == 1 then
+        print("✓ algo/dbg.h: 已安装")
+        local size = vim.fn.getfsize(dbg_file)
+        print("  文件大小: " .. size .. " bytes")
+    else
+        print("✗ algo/dbg.h: 未安装")
+        print("  使用 \\dh 安装")
+    end
+    print("")
+end
+
 return M

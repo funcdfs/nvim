@@ -108,6 +108,15 @@ keymap('n', '<Leader>zo', 'zo', { desc = '打开折叠' })
 keymap('n', '<Leader>zm', 'zM', { desc = '关闭所有折叠' })
 keymap('n', '<Leader>zr', 'zR', { desc = '打开所有折叠' })
 
+-- C++ 头文件管理
+keymap('n', '<Leader>dh', function()
+    require('core.utils').download_cpp_headers()
+end, { desc = '下载 C++ 头文件 (bits/stdc++.h, algo/dbg.h)' })
+
+keymap('n', '<Leader>ch', function()
+    require('core.utils').check_cpp_headers()
+end, { desc = '检查 C++ 头文件状态' })
+
 -- ============================================================================
 -- 自动命令和特殊设置
 -- ============================================================================
