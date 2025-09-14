@@ -164,22 +164,28 @@ Create or edit `~/.config/nvim/snippets/cpp.json` in VSCode format:
 ### Custom Code Formatting
 This configuration includes a custom `.clang-format` file based on Google style with personal modifications.
 
+#### Formatting Commands (Leader: `\`)
 ```bash
-# Copy custom .clang-format to current project:
-# \lcfg                   # Copy .clang-format to current directory
-
-# Format code:
-# \lfmt                   # Format current buffer (general LSP format)
-# \lcpp                   # Format C++ buffer with custom style
+# Format C++ code:
+# \f                      # Format current C/C++ buffer
+# \F                      # Format and save C/C++ file
+# \fi                     # Show formatting configuration info
+# \scf                    # Copy .clang-format to current project
 
 # The .clang-format file features:
 # - Based on Google style
-# - 3-space indentation
+# - 3-space indentation (TabWidth & IndentWidth)
 # - 110 column limit
 # - Pointer alignment left
 # - Custom brace wrapping
 # - Optimized for competitive programming
 ```
+
+#### Format Configuration Priority
+The formatter uses the following priority order:
+1. **Project .clang-format** - If exists in current directory
+2. **Neovim .clang-format** - From `~/.config/nvim/.clang-format`
+3. **Error** - No configuration found (prompts to use `\scf`)
 
 #### Manual Project Setup
 ```bash

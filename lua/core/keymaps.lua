@@ -78,15 +78,18 @@ keymap('n', '<Leader>p', '"+p', { desc = '粘贴系统剪贴板' })
 keymap('n', '<Leader>d', 'ggdG', { desc = '删除全部内容' })
 keymap('n', '<Leader>s', ':nohls<CR>', { desc = '清除搜索高亮' })
 
--- C/C++ 格式化
+-- C/C++ 格式化相关
 keymap('n', '<Leader>f', function()
-    local ft = vim.bo.filetype
-    if ft == "cpp" or ft == "c" then
-        require('core.utils').format_cpp_buffer()
-    else
-        print("⚠️ 格式化仅支持 C/C++ 文件")
-    end
+    require('core.utils').format_cpp_buffer()
 end, { desc = 'C/C++ 格式化' })
+
+keymap('n', '<Leader>F', function()
+    require('core.utils').format_and_save()
+end, { desc = 'C/C++ 格式化并保存' })
+
+keymap('n', '<Leader>fi', function()
+    require('core.utils').show_format_info()
+end, { desc = '显示格式化配置信息' })
 
 -- 主题切换
 keymap('n', '<Leader>tc', '<cmd>lua switch_to_catppuccin()<CR>', { desc = '切换到 Catppuccin 主题' })
