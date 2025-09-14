@@ -1,16 +1,13 @@
 {
-  "name": "custom-snippets",
-  "version": "1.0.0",
-  "description": "Custom snippets for competitive programming",
+  "name": "cpp-snippets",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
   "contributes": {
     "snippets": [
       {
         "language": ["cpp", "c"],
         "path": "./cpp.json"
-      },
-      {
-        "language": ["go"],
-        "path": "./go.json"
       }
     ]
   }

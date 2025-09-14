@@ -114,30 +114,9 @@ int main() {
 g++ -o main main.cpp && ./main
 ```
 
-### Go Development Setup
-```bash
-# Install Go (if not already installed):
-brew install go
 
-# gopls will be automatically installed via Mason
-# Check installation status:
-# :Mason (run inside Neovim)
-
-# Create a simple Go project:
-echo 'package main
-
-import "fmt"
-
-func main() {
-    fmt.Println("Hello, World!")
-}' > main.go
-
-# Run Go code:
-go run main.go
-```
-
-### Snippets Usage (VSCode Format)
-Snippets provide quick code templates that you can expand. This configuration supports VSCode-style snippets.
+### C++ Snippets Usage (VSCode Format)
+Snippets provide quick code templates that you can expand. This configuration supports C++ snippets only.
 
 ```bash
 # Built-in C++ snippets (type prefix and press Tab):
@@ -149,19 +128,8 @@ Snippets provide quick code templates that you can expand. This configuration su
 # unique   - Sort and remove duplicates
 # ... (see cpp.json for full list)
 
-# Built-in Go snippets (type prefix and press Tab):
-# main     - Create main function
-# p        - fmt.Println
-# pf       - fmt.Printf
-# iferr    - if err != nil
-# func     - function declaration
-# forr     - for range loop
-# st       - struct definition
-
-# Custom snippets location:
+# Snippet file location:
 # ~/.config/nvim/snippets/cpp.json
-# ~/.config/nvim/snippets/go.json
-# ~/.config/nvim/snippets/[language].json
 ```
 
 #### Creating Custom Snippets
@@ -181,16 +149,16 @@ Create or edit `~/.config/nvim/snippets/cpp.json` in VSCode format:
 
 **Usage**: Type the prefix and press `Tab` to expand. Use `Tab`/`Shift+Tab` to navigate between placeholders.
 
-**Debugging Snippets**:
+**Debugging C++ Snippets**:
 ```bash
-# Check if snippets are loaded (run inside Neovim):
-# :LuaSnipList                 # List all available snippets for current filetype
+# Check if snippets are loaded (run inside Neovim, C++ files only):
+# :LuaSnipList                 # List all available C++ snippets
 # :LuaSnipExpand              # Manually expand snippet at cursor
 
 # Alternative expansion keys:
 # <C-K>                       # Expand snippet
 # <C-L>                       # Jump forward in snippet
-# <C-J>                       # Jump backward in snippet
+# <C-H>                       # Jump backward in snippet
 ```
 
 ### Custom Code Formatting
@@ -334,7 +302,6 @@ If the plugin needs configuration, create `lua/plugins/configs/plugin-name.lua`.
 2. **LSP service control**: `\lon` (start), `\loff` (stop), `\linfo` (info)
 3. **Restart LSP**: `\lres` - Restart all LSP servers
 4. **Manual clangd start**: `\linsc` - Start clangd manually for C++ files
-5. **Install Go tools**: `\linsg` - Install gopls for Go development
 6. **Formatting options**: `\lfmt` (general LSP), `\lcpp` (C++ with custom style)
 7. **Install clang-format**: `brew install clang-format` (macOS)
 

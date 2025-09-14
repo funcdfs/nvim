@@ -13,11 +13,11 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.mouse = "a"
 vim.opt.scrolloff = 8
 
--- 缩进配置（主要用于 C++）
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+-- 缩进配置（与 .clang-format 保持一致）
+vim.opt.tabstop = 3      -- tab 显示为 3 个空格宽度
+vim.opt.softtabstop = 3  -- 软 tab 宽度为 3
+vim.opt.shiftwidth = 3   -- 缩进宽度为 3 空格
+vim.opt.expandtab = true -- tab 转换为空格（与 clang-format UseTab: Never 一致）
 
 -- UI 配置
 vim.opt.number = true
@@ -27,7 +27,12 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.termguicolors = true
 vim.opt.showmode = true
-vim.opt.signcolumn = "yes"  -- 防止闪动
+vim.opt.signcolumn = "no"   -- 无LSP，不需要signcolumn
+
+-- 行显示配置 - 禁用换行
+vim.opt.wrap = false         -- 禁用长行自动换行显示
+vim.opt.linebreak = false    -- 禁用单词边界换行
+vim.opt.textwidth = 0        -- 禁用自动文本换行
 
 -- 搜索配置
 vim.opt.incsearch = true

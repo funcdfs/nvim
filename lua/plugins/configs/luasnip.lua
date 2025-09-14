@@ -1,44 +1,42 @@
 local luasnip_ok, luasnip = pcall(require, "luasnip")
 if not luasnip_ok then
+    vim.notify("LuaSnip not loaded", vim.log.levels.ERROR)
     return
 end
 
--- Configure LuaSnip
+-- Configure LuaSnip for C++ development
 luasnip.config.setup({
-    -- Enable autotriggered snippets
     enable_autosnippets = true,
-    -- Use Tab (or some other key if you prefer) to trigger visual selection
     store_selection_keys = "<Tab>",
-    -- Event on which to check for exiting a snippet's region
     region_check_events = 'InsertEnter',
     delete_check_events = 'InsertLeave',
 })
 
--- Load VSCode style snippets from multiple sources
+-- Load VSCode style snippets
 local vscode_loader = require("luasnip.loaders.from_vscode")
 
 -- Custom snippets directory
-local custom_snippets_path = vim.fn.stdpath("config") .. "/snippets"
+local snippets_dir = vim.fn.stdpath("config") .. "/snippets"
+local cpp_snippets_file = snippets_dir .. "/cpp.json"
+local package_json_file = snippets_dir .. "/package.json"
 
--- Function to check if directory exists
-local function dir_exists(path)
-    local stat = vim.loop.fs_stat(path)
-    return stat and stat.type == "directory"
+-- Load C++ snippets if they exist
+if vim.fn.filereadable(cpp_snippets_file) == 1 and vim.fn.filereadable(package_json_file) == 1 then
+    -- 使用VSCode加载器加载整个目录（包含package.json）
+    vscode_loader.load({ paths = { snippets_dir } })
+    print("✓ C++ snippets loaded from: " .. snippets_dir)
+else
+    print("⚠️ C++ snippets directory incomplete: " .. snippets_dir)
 end
 
--- Load custom snippets
-if dir_exists(custom_snippets_path) then
-    vscode_loader.lazy_load({ paths = { custom_snippets_path } })
-end
+-- ============================================================================
+-- Key mappings for LuaSnip
+-- ============================================================================
+-- Tab 键由 nvim-cmp 管理，这里提供备选键位
 
--- Optionally load friendly-snippets as fallback (commented out to keep it minimal)
--- vscode_loader.lazy_load()
-
--- Key mappings for LuaSnip (备选，主要通过 nvim-cmp 管理)
--- Tab 键由 nvim-cmp 管理，这里只提供备选键位
 vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
 vim.keymap.set({"i", "s"}, "<C-L>", function() luasnip.jump( 1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-H>", function() luasnip.jump(-1) end, {silent = true}) -- 改为 C-H 防止与 cmp 冲突
+vim.keymap.set({"i", "s"}, "<C-H>", function() luasnip.jump(-1) end, {silent = true})
 
 vim.keymap.set({"i", "s"}, "<C-E>", function()
     if luasnip.choice_active() then
@@ -46,31 +44,42 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
     end
 end, {silent = true})
 
--- Debug function to list all available snippets
-local function list_snippets()
+-- ============================================================================
+-- Debug functions for C++ snippets
+-- ============================================================================
+
+local function list_cpp_snippets()
     local ft = vim.bo.filetype
+    if ft ~= "cpp" and ft ~= "c" then
+        print("⚠️ Not a C/C++ file (current: " .. ft .. ")")
+        return
+    end
+    
     local available_snippets = luasnip.get_snippets(ft)
     
     if available_snippets and #available_snippets > 0 then
+        print("📋 Available C++ snippets:")
         for i, snip in ipairs(available_snippets) do
             local trigger = snip.trigger or "unknown"
             local desc = snip.dscr or snip.description or "No description"
             if type(desc) == "table" then
                 desc = table.concat(desc, " ")
             end
-            print(i .. ". " .. trigger .. " - " .. desc)
+            print(string.format("  %2d. %-15s - %s", i, trigger, desc))
         end
+    else
+        print("⚠️ No C++ snippets available")
     end
 end
 
--- Commands to debug snippets
-vim.api.nvim_create_user_command('LuaSnipList', list_snippets, {})
+-- Commands
+vim.api.nvim_create_user_command('LuaSnipList', list_cpp_snippets, 
+    { desc = "List available C++ snippets" })
 
--- Command to manually trigger snippet expansion
 vim.api.nvim_create_user_command('LuaSnipExpand', function()
     if luasnip.expandable() then
         luasnip.expand()
+    else
+        print("⚠️ No expandable snippet at cursor")
     end
-end, {})
-
--- Snippet reloading is handled in core/autocmds.lua
+end, { desc = "Manually expand snippet at cursor" })
